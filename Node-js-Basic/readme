@@ -1,0 +1,5 @@
+app flow
+
+create routes 
+   routes will have link to controller
+register them in app.js
