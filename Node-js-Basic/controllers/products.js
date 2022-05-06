@@ -27,6 +27,20 @@ exports.deleteProduct = (req,res,next) =>{
     res.redirect('/products')
 }
 
+exports.getProductDetails = (req , res ,next) =>{
+  product_id = req.params.productId
+  Product.fetchById(product => {
+    res.render('endusers/product-details' , {
+      product: product,
+      pageTitle: 'Product Details',
+      path: '/endusers/product-details',
+      hasProducts: product.length > 0,
+      activeShop: true,
+      productCSS: true
+    })
+  } , product_id) 
+}
+
 exports.manageProduct = (req ,res , next) =>{
   Product.fetchAll(products => {
     res.render('admin/manage-products', {
@@ -62,6 +76,12 @@ exports.getCart = (req , res , next) =>{
     path:'/cart',
     pageTitle: 'Your Basket'
   })
+}
+
+exports.addToCart = (req,res,next) =>{
+  const productId = req.body.productId;
+  console.log('product id' ,productId);
+  res.redirect('/cart')
 }
 
 exports.myOrders = (req , res , next) =>{

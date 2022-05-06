@@ -12,7 +12,11 @@ router.get('/products' , productsController.getProducts)
 
 router.get('/cart' , productsController.getCart)
 
+router.post('/cart' , productsController.addToCart)
+
 router.get('/orders' , productsController.myOrders)
+
+router.get('/product/:productId/details' , productsController.getProductDetails)
 
 
 module.exports = router;

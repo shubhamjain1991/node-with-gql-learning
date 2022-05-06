@@ -27,6 +27,7 @@ module.exports = class Product {
   }
 
   save() {
+    this.id = new Date().getTime();
     getProductsFromFile(products => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), err => {
@@ -37,5 +38,13 @@ module.exports = class Product {
 
   static fetchAll(cb) {
     getProductsFromFile(cb);
+  }
+
+  static fetchById(cb , id){
+    getProductsFromFile(products =>{
+      let matched_product =  products.filter(product => product.id == id );
+      cb(matched_product);
+    })
+  
   }
 };
