@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Cart = require('../models/cart')
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/add-product', {
@@ -16,11 +17,30 @@ exports.postAddProduct = (req, res, next) => {
   res.redirect('/products');
 };
 
+exports.updateProduct = (req , res , next) =>{
+  console.log('updaint ' , req.params.productId , res.body );
+  const productId = req.params.productId;
+  const product = new Product(req.body.title , req.body.imageUrl,req.body.description , req.body.price);
+  product.id = productId;
+  product.updateProductById();
+  res.redirect('/products')
+
+}
+
 exports.editProduct = (req,res,next) =>{
-  res.render('admin/edit-product' , {
-    path:'/product-details',
-    pageTitle: 'Product Details'
-  })
+  const productId = req.params.productId;
+  const editMode = req.query.edit;
+  console.log("productId" , productId , "edit" , editMode)
+  Product.fetchById(product => {
+    res.render('admin/edit-product' , {
+      product: product,
+      pageTitle: 'Edit Product',
+      path: '/endusers/edit-product',
+      hasProducts: product.length > 0,
+      activeShop: true,
+      productCSS: true
+    })
+  } , productId)
 }
 
 exports.deleteProduct = (req,res,next) =>{
@@ -81,6 +101,7 @@ exports.getCart = (req , res , next) =>{
 exports.addToCart = (req,res,next) =>{
   const productId = req.body.productId;
   console.log('product id' ,productId);
+  Cart.addToCart(productId);
   res.redirect('/cart')
 }
 

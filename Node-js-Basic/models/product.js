@@ -45,6 +45,18 @@ module.exports = class Product {
       let matched_product =  products.filter(product => product.id == id );
       cb(matched_product);
     })
-  
+  }
+
+   updateProductById(){
+     console.log('passed product' , this)
+    getProductsFromFile(products =>{
+        const productIndex =  products.findIndex(product => product.id == this.id);
+        console.log('foundindex' , productIndex);
+        products[productIndex] = this;
+        fs.writeFile(p, JSON.stringify(products), err => {
+          console.log(err);
+        });
+    })
+
   }
 };

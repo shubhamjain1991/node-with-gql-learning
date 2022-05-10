@@ -14,7 +14,9 @@ router.post('/add-product', productsController.postAddProduct);
 
 router.get('/manage-products' ,productsController.manageProduct)
 
-router.get('/edit-product' , productsController.editProduct)
+router.get('/edit-product/:productId' , productsController.editProduct)
+
+router.post('/product/:productId/edit' , productsController.updateProduct)
 
 router.post('/delete-product' , productsController.deleteProduct)
 
