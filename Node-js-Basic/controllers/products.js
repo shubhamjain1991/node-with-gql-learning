@@ -44,7 +44,15 @@ exports.editProduct = (req,res,next) =>{
 }
 
 exports.deleteProduct = (req,res,next) =>{
+    const product_id = req.params.productId;
+    Product.deleteById(product_id);
     res.redirect('/products')
+}
+
+exports.updateCart = (req,res,next) =>{
+  const itemId = req.params.itemId;
+  Cart.removeItemFromCart(itemId)
+  res.redirect('/cart')
 }
 
 exports.getProductDetails = (req , res ,next) =>{
@@ -92,10 +100,14 @@ exports.index = (req,res,next) => {
 }
 
 exports.getCart = (req , res , next) =>{
-  res.render('endusers/cart' , {
-    path:'/cart',
-    pageTitle: 'Your Basket'
+  Cart.getCart(cart => {
+    res.render('endusers/cart' , {
+      path:'/cart',
+      cart:cart,
+      pageTitle: 'Your Basket'
+    })
   })
+  
 }
 
 exports.addToCart = (req,res,next) =>{

@@ -20,7 +20,6 @@ const getProductsFromFile = cb => {
 
 
 module.exports = class Cart {
-
   static addToCart(productId) {
     ProductDto.fetchAll(products => {
       let productDetails = products.find(product => product.id == productId);
@@ -39,6 +38,22 @@ module.exports = class Cart {
         });
       })
     });
+  }
+
+  static getCart(cb){
+    getProductsFromFile(cb)
+  }
+
+  static removeItemFromCart(id){
+    getProductsFromFile(cart => {
+      console.log("available cart" , cart  , "passed id" , id)
+      const updatedCart = cart.filter(cartItem=> cartItem.product.id != id);
+      fs.writeFile(p, JSON.stringify(updatedCart), err => {
+        console.log(err);
+      });
+
+    })
+
   }
 
 }

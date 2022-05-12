@@ -1,12 +1,45 @@
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/cart.css">
 </head>
 
 <body>
     <%- include('../includes/navigation.ejs') %>
 
     <main>
-        <p>cart</p>
-
+        <div class="cartItemsHeaders">
+            <div class="cartItemHeader">
+                <label>Item Name</label>
+                <label>Item Qty</label>
+                <label>Item price</label>
+                <label>Total price</label>
+                <label></label>
+            </div>
+        </div>
+        <div class="cartItems">
+            <%  let cartValue = 0 ;
+            if(cart.length > 0 ){ 
+             for (let cartItem of cart) { 
+                 cartValue = cartItem.price+cartValue  %>
+            <div class="cartItem">
+                <input type="text" value="<%=cartItem.product.title%>" id="title" readonly>
+                <input type="number" value="<%=cartItem.qty%>" id="qty" readonly>
+                <input type="number" name="<%=cartItem.product.price%>" id="itemPrice" value="1" readonly>
+                <input type="number" name="totalPrice" id="totalPrice" value="<%=cartItem.price%>" readonly> 
+                <form action="/cart/item/<%=cartItem.product.id%>/remove" method="POST">   
+                     <button class="btn" type="submit">Remove Product</button> 
+                    </form>
+            </div>
+            <% } } else {  %>
+                <div>
+                    Cart is e[ty]
+                </div>
+                <%}%>
+            
+        </div>
+        <div class="finalCart">
+            <label class="lbl" for="total cart value">Toatl Cart Value </label>
+            <input type="number" value="<%=cartValue%>"readonly>
+        </div>
     </main>
 <%- include('../includes/end.ejs') %>

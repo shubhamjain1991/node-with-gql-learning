@@ -18,5 +18,7 @@ router.get('/orders' , productsController.myOrders)
 
 router.get('/product/:productId/details' , productsController.getProductDetails)
 
+router.post('/cart/item/:itemId/remove' , productsController.updateCart)
+
 
 module.exports = router;

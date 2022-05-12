@@ -18,6 +18,6 @@ router.get('/edit-product/:productId' , productsController.editProduct)
 
 router.post('/product/:productId/edit' , productsController.updateProduct)
 
-router.post('/delete-product' , productsController.deleteProduct)
+router.post('/delete-product/:productId' , productsController.deleteProduct)
 
 module.exports = router;
